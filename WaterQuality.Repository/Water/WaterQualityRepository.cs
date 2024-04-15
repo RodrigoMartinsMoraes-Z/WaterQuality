@@ -3,9 +3,10 @@ using MongoDB.Driver;
 
 using WaterQuality.Domain.Water;
 using WaterQuality.Interfaces.Context;
+using WaterQuality.Interfaces.Repository;
 
 namespace WaterQuality.Repository.Water;
-public class WaterQualityRepository(IMongoDbContext db)
+public class WaterQualityRepository(IMongoDbContext db) : IWaterQualityRepository
 {
     private readonly IMongoDbContext _db = db;
 
