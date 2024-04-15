@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34408.163
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WaterQuality.Api", "WaterQuality.Api\WaterQuality.Api.csproj", "{1B8D9035-624F-4711-8A6B-75F99E6D22A5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WaterQuality.Services", "WaterQuality.Services\WaterQuality.Services.csproj", "{0D0EA181-833F-436F-A723-2879D62CC7C1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WaterQuality.Interfaces", "WaterQuality.Interfaces\WaterQuality.Interfaces.csproj", "{27122944-09C6-42D7-BBEF-5BB88F7DC5F3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WaterQuality.Domain", "WaterQuality.Domain\WaterQuality.Domain.csproj", "{7C469685-3880-4FD0-8F71-E171B126E82A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WaterQuality.Context", "WaterQuality.Context\WaterQuality.Context.csproj", "{DEE31538-7F65-4047-B1FF-0528116ED787}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WaterQuality.Repository", "WaterQuality.Repository\WaterQuality.Repository.csproj", "{AD952ABA-6B84-45AD-8E5C-E9D0EFD56F4F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1B8D9035-624F-4711-8A6B-75F99E6D22A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B8D9035-624F-4711-8A6B-75F99E6D22A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B8D9035-624F-4711-8A6B-75F99E6D22A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B8D9035-624F-4711-8A6B-75F99E6D22A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D0EA181-833F-436F-A723-2879D62CC7C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D0EA181-833F-436F-A723-2879D62CC7C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D0EA181-833F-436F-A723-2879D62CC7C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D0EA181-833F-436F-A723-2879D62CC7C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27122944-09C6-42D7-BBEF-5BB88F7DC5F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27122944-09C6-42D7-BBEF-5BB88F7DC5F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27122944-09C6-42D7-BBEF-5BB88F7DC5F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27122944-09C6-42D7-BBEF-5BB88F7DC5F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C469685-3880-4FD0-8F71-E171B126E82A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C469685-3880-4FD0-8F71-E171B126E82A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C469685-3880-4FD0-8F71-E171B126E82A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C469685-3880-4FD0-8F71-E171B126E82A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DEE31538-7F65-4047-B1FF-0528116ED787}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DEE31538-7F65-4047-B1FF-0528116ED787}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DEE31538-7F65-4047-B1FF-0528116ED787}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DEE31538-7F65-4047-B1FF-0528116ED787}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD952ABA-6B84-45AD-8E5C-E9D0EFD56F4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD952ABA-6B84-45AD-8E5C-E9D0EFD56F4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD952ABA-6B84-45AD-8E5C-E9D0EFD56F4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD952ABA-6B84-45AD-8E5C-E9D0EFD56F4F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EAB29E52-BC9E-4450-9185-9CF6786C5741}
+	EndGlobalSection
+EndGlobal
