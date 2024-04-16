@@ -12,7 +12,7 @@ public class WaterQualityRepository(IMongoDbContext db) : IWaterQualityRepositor
 
     public async Task<ICollection<WaterQualityParameter>> Get() => await _db.WaterQualityParameters.FindAsync(new BsonDocument()).Result.ToListAsync();
 
-    public async Task<WaterQualityParameter> Get(DateTime date)
+    public async Task<ICollection<WaterQualityParameter>> Get(DateTime date)
     {
         var startOfDay = date.Date;
         var endOfDay = startOfDay.AddDays(1).AddMilliseconds(-1);
@@ -20,7 +20,7 @@ public class WaterQualityRepository(IMongoDbContext db) : IWaterQualityRepositor
         FilterDefinition<WaterQualityParameter> filter = Builders<WaterQualityParameter>.Filter.And(Builders<WaterQualityParameter>.Filter.Gte(w => w.Date, startOfDay),
                                                                                                     Builders<WaterQualityParameter>.Filter.Lt(w => w.Date, endOfDay));
 
-        return await _db.WaterQualityParameters.FindAsync(filter).Result.FirstOrDefaultAsync();
+        return await _db.WaterQualityParameters.FindAsync(filter).Result.ToListAsync();
     }
 
     public async Task Save(WaterQualityParameter waterQuality) => await _db.WaterQualityParameters.InsertOneAsync(waterQuality);

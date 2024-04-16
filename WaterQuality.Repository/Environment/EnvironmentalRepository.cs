@@ -13,7 +13,7 @@ public class EnvironmentalRepository(IMongoDbContext db) : IEnvironmentalReposit
 
     public async Task<ICollection<EnvironmentalParameter>> Get() => await _db.EnvironmentalParameters.FindAsync(new BsonDocument()).Result.ToListAsync();
 
-    public async Task<EnvironmentalParameter> Get(DateTime date)
+    public async Task<ICollection<EnvironmentalParameter>> Get(DateTime date)
     {
         var startOfDay = date.Date;
         var endOfDay = startOfDay.AddDays(1).AddMilliseconds(-1);
@@ -21,7 +21,7 @@ public class EnvironmentalRepository(IMongoDbContext db) : IEnvironmentalReposit
         FilterDefinition<EnvironmentalParameter> filter = Builders<EnvironmentalParameter>.Filter.And(Builders<EnvironmentalParameter>.Filter.Gte(w => w.Date, startOfDay),
                                                                                                     Builders<EnvironmentalParameter>.Filter.Lt(w => w.Date, endOfDay));
 
-        return await _db.EnvironmentalParameters.FindAsync(filter).Result.FirstOrDefaultAsync();
+        return await _db.EnvironmentalParameters.FindAsync(filter).Result.ToListAsync();
     }
 
     public async Task Save(EnvironmentalParameter environmental) => await _db.EnvironmentalParameters.InsertOneAsync(environmental);
