@@ -3,13 +3,18 @@
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 USER app
 WORKDIR /app
-EXPOSE 5530
-EXPOSE 5531
+EXPOSE 8080
+EXPOSE 8081
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["WaterQuality.Api/WaterQuality.Api.csproj", "WaterQuality.Api/"]
+COPY ["WaterQuality.Context/WaterQuality.Context.csproj", "WaterQuality.Context/"]
+COPY ["WaterQuality.Domain/WaterQuality.Domain.csproj", "WaterQuality.Domain/"]
+COPY ["WaterQuality.Interfaces/WaterQuality.Interfaces.csproj", "WaterQuality.Interfaces/"]
+COPY ["WaterQuality.Repository/WaterQuality.Repository.csproj", "WaterQuality.Repository/"]
+COPY ["WaterQuality.Services/WaterQuality.Services.csproj", "WaterQuality.Services/"]
 RUN dotnet restore "./WaterQuality.Api/./WaterQuality.Api.csproj"
 COPY . .
 WORKDIR "/src/WaterQuality.Api"
