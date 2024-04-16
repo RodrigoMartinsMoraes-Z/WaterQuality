@@ -15,4 +15,11 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\WaterQuality.Context\WaterQuality.Context.csproj" />
+    <ProjectReference Include="..\WaterQuality.Interfaces\WaterQuality.Interfaces.csproj" />
+    <ProjectReference Include="..\WaterQuality.Repository\WaterQuality.Repository.csproj" />
+    <ProjectReference Include="..\WaterQuality.Services\WaterQuality.Services.csproj" />
+  </ItemGroup>
+
 </Project>
