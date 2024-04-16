@@ -30,12 +30,17 @@ builder.Services.AddScoped<IWaterQualityRepository, WaterQualityRepository>();
 builder.Services.AddScoped<IEnvironmentService, EnvironmentService>();
 builder.Services.AddScoped<IWaterService, WaterService>();
 
+// Configure Kestrel to listen on a specific port
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.ListenAnyIP(8080);
+});
+
 WebApplication app = builder.Build();
 
 app.UseSwagger();
 app.UseSwaggerUI();
 
-app.UseHttpsRedirection();
 
 #region WATER QUALITY
 app.MapGet("/waterQuality", (IWaterService service) =>
