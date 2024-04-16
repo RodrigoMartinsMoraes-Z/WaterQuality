@@ -23,5 +23,5 @@ public class WaterQualityRepository(IMongoDbContext db) : IWaterQualityRepositor
         return await _db.WaterQualityParameters.FindAsync(filter).Result.ToListAsync();
     }
 
-    public async Task Save(WaterQualityParameter waterQuality) => await _db.WaterQualityParameters.InsertOneAsync(waterQuality);
+    public async Task Save(WaterQualityParameter waterQuality) => await _db.WaterQualityParameters.InsertOneAsync(waterQuality with { Date = DateTime.Now});
 }

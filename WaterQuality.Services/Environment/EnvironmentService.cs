@@ -1,17 +1,19 @@
 ﻿using WaterQuality.Domain.Environment;
+using WaterQuality.Interfaces.Repository;
 using WaterQuality.Interfaces.Services;
-using WaterQuality.Repository.Environment;
 
 namespace WaterQuality.Services.Environment;
-public class EnvironmentService(EnvironmentalRepository repository) : IEnvironmentService
+public class EnvironmentService(IEnvironmentalRepository repository) : IEnvironmentService
 {
-    public async Task<ICollection<EnvironmentalParameter>> Get() => await repository.Get();
+    private readonly IEnvironmentalRepository _repository = repository;
 
-    public async Task<ICollection<EnvironmentalParameter>> GetRealtime() => await repository.Get(DateTime.Now);
+    public async Task<ICollection<EnvironmentalParameter>> Get() => await _repository.Get();
 
-    public async Task<ICollection<EnvironmentalParameter>> GetCurrentDay() => await repository.Get(DateTime.Today);
+    public async Task<ICollection<EnvironmentalParameter>> GetRealtime() => await _repository.Get(DateTime.Now);
 
-    public async Task<ICollection<EnvironmentalParameter>> GetFromDay(DateTime date) => await repository.Get(date);
+    public async Task<ICollection<EnvironmentalParameter>> GetCurrentDay() => await _repository.Get(DateTime.Today);
 
-    public async Task Save(EnvironmentalParameter parameter) => await repository.Save(parameter);
+    public async Task<ICollection<EnvironmentalParameter>> GetFromDay(DateTime date) => await _repository.Get(date);
+
+    public async Task Save(EnvironmentalParameter parameter) => await _repository.Save(parameter);
 }

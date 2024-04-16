@@ -46,35 +46,35 @@ app.MapGet("/waterQuality", (IWaterService service) =>
 {
     return service.Get();
 })
-.WithName("GetWaterQuality")
+.WithName("waterQuality")
 .WithOpenApi();
 
 app.MapGet("/currentWaterQuality", (IWaterService service) =>
 {
     return service.GetRealtime();
 })
-.WithName("GetWaterQuality")
+.WithName("currentWaterQuality")
 .WithOpenApi();
 
 app.MapGet("/currentDayWaterQuality", (IWaterService service) =>
 {
     return service.GetCurrentDay();
 })
-.WithName("GetWaterQuality")
+.WithName("currentDayWaterQuality")
 .WithOpenApi();
 
 app.MapGet("/waterQuality/{date}", (IWaterService service, DateTime date) =>
 {
     return service.GetFromDay(date);
 })
-.WithName("GetWaterQuality")
+.WithName("waterQualityDate")
 .WithOpenApi();
 
 app.MapPost("/waterQuality/", (IWaterService service, WaterQualityParameter parameter) =>
 {
     return service.Save(parameter);
 })
-.WithName("GetWaterQuality")
+.WithName("saveWaterQuality")
 .WithOpenApi();
 #endregion
 #region ENVIRONMENT
@@ -89,28 +89,28 @@ app.MapGet("/currentenvironmentQuality", (IEnvironmentService service) =>
 {
     return service.GetRealtime();
 })
-.WithName("GetenvironmentQuality")
+.WithName("GetcurrentEnvironmentQuality")
 .WithOpenApi();
 
-app.MapGet("/currentDayenvironmentQuality", (IEnvironmentService service) =>
+app.MapGet("/currentDayEnvironmentQuality", (IEnvironmentService service) =>
 {
     return service.GetCurrentDay();
 })
-.WithName("GetenvironmentQuality")
+.WithName("GetcurrentDayEnvironmentQuality")
 .WithOpenApi();
 
 app.MapGet("/environmentQuality/{date}", (IEnvironmentService service, DateTime date) =>
 {
     return service.GetFromDay(date);
 })
-.WithName("GetenvironmentQuality")
+.WithName("GetenvironmentQualityDate")
 .WithOpenApi();
 
 app.MapPost("/environmentQuality/", (IEnvironmentService service, EnvironmentalParameter parameter) =>
 {
     return service.Save(parameter);
 })
-.WithName("GetenvironmentQuality")
+.WithName("PostenvironmentQuality")
 .WithOpenApi();
 #endregion
 

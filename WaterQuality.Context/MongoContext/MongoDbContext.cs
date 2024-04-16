@@ -1,4 +1,5 @@
-﻿using MongoDB.Driver;
+﻿using MongoDB.Bson.Serialization.Conventions;
+using MongoDB.Driver;
 
 using WaterQuality.Domain.Environment;
 using WaterQuality.Domain.Water;
@@ -13,6 +14,9 @@ public class MongoDbContext : IMongoDbContext
     {
         var client = new MongoClient(connectionString);
         _db = client.GetDatabase(dbName);
+
+        var conventionPack = new ConventionPack { new IgnoreExtraElementsConvention(true) };
+        ConventionRegistry.Register("IgnoreId", conventionPack, type => true);
     }
 
     public IMongoCollection<EnvironmentalParameter> EnvironmentalParameters => _db.GetCollection<EnvironmentalParameter>("EnvironmentalParameters");

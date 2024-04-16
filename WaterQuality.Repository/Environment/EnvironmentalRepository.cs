@@ -24,5 +24,5 @@ public class EnvironmentalRepository(IMongoDbContext db) : IEnvironmentalReposit
         return await _db.EnvironmentalParameters.FindAsync(filter).Result.ToListAsync();
     }
 
-    public async Task Save(EnvironmentalParameter environmental) => await _db.EnvironmentalParameters.InsertOneAsync(environmental);
+    public async Task Save(EnvironmentalParameter environmental) => await _db.EnvironmentalParameters.InsertOneAsync(environmental with { Date = DateTime.Now });
 }
