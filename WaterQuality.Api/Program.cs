@@ -1,5 +1,6 @@
 using MongoDB.Driver;
 
+using WaterQuality.Common.Response;
 using WaterQuality.Context.MongoContext;
 using WaterQuality.Domain.Environment;
 using WaterQuality.Domain.Water;
@@ -43,76 +44,129 @@ app.UseSwaggerUI();
 
 
 #region WATER QUALITY
-app.MapGet("/waterQuality", (IWaterService service) =>
+app.MapGet("/waterQuality", async (IWaterService service, CancellationToken ct = default) =>
 {
-    return service.Get();
+    using var cts = CancellationTokenSource.CreateLinkedTokenSource(ct);
+    cts.CancelAfter(TimeSpan.FromSeconds(20));
+    return await service.GetAsync(cts.Token).ConfigureAwait(true);
 })
-.WithName("waterQuality")
+.WithName("GetAllWaterQuality")
+.WithDescription("Retorna todos os registros históricos de qualidade da água.")
+.Produces<DefaultResponse>(StatusCodes.Status200OK)
+.Produces<DefaultResponse>(StatusCodes.Status500InternalServerError)
 .WithOpenApi();
 
-app.MapGet("/currentWaterQuality", (IWaterService service) =>
+app.MapGet("/currentWaterQuality", async (IWaterService service, CancellationToken ct = default) =>
 {
-    return service.GetRealtime();
+    using var cts = CancellationTokenSource.CreateLinkedTokenSource(ct);
+    cts.CancelAfter(TimeSpan.FromSeconds(20));
+    return await service.GetRealtimeAsync(cts.Token).ConfigureAwait(true);
 })
-.WithName("currentWaterQuality")
+.WithName("GetRealtimeWaterQuality")
+.WithDescription("Retorna os registros da qualidade da água no momento atual.")
+.Produces<DefaultResponse>(StatusCodes.Status200OK)
+.Produces<DefaultResponse>(StatusCodes.Status500InternalServerError)
 .WithOpenApi();
 
-app.MapGet("/currentDayWaterQuality", (IWaterService service) =>
+app.MapGet("/currentDayWaterQuality", async (IWaterService service, CancellationToken ct = default) =>
 {
-    return service.GetCurrentDay();
+    using var cts = CancellationTokenSource.CreateLinkedTokenSource(ct);
+    cts.CancelAfter(TimeSpan.FromSeconds(20));
+    return await service.GetCurrentDayAsync(cts.Token).ConfigureAwait(true);
 })
-.WithName("currentDayWaterQuality")
+.WithName("GetCurrentDayWaterQuality")
+.WithDescription("Retorna os dados de qualidade da água para o dia atual.")
+.Produces<DefaultResponse>(StatusCodes.Status200OK)
+.Produces<DefaultResponse>(StatusCodes.Status500InternalServerError)
 .WithOpenApi();
 
-app.MapGet("/waterQuality/{date}", (IWaterService service, DateTime date) =>
+app.MapGet("/waterQuality/{date}", async (IWaterService service, DateTime date, CancellationToken ct = default) =>
 {
-    return service.GetFromDay(date);
+    using var cts = CancellationTokenSource.CreateLinkedTokenSource(ct);
+    cts.CancelAfter(TimeSpan.FromSeconds(20));
+    return await service.GetFromDayAsync(date, cts.Token).ConfigureAwait(true);
 })
-.WithName("waterQualityDate")
+.WithName("GetWaterQualityByDate")
+.WithDescription("Retorna os dados de qualidade da água para a data informada (yyyy-MM-dd).")
+.Produces<DefaultResponse>(StatusCodes.Status200OK)
+.Produces<DefaultResponse>(StatusCodes.Status500InternalServerError)
 .WithOpenApi();
 
-app.MapPost("/waterQuality/", (IWaterService service, WaterQualityParameter parameter) =>
+app.MapPost("/waterQuality", async (IWaterService service, WaterQualityParameter parameter, CancellationToken ct = default) =>
 {
-    return service.Save(parameter);
+    using var cts = CancellationTokenSource.CreateLinkedTokenSource(ct);
+    cts.CancelAfter(TimeSpan.FromSeconds(20));
+    return await service.SaveAsync(parameter, cts.Token).ConfigureAwait(true);
 })
-.WithName("saveWaterQuality")
+.WithName("SaveWaterQuality")
+.WithDescription("Salva um novo registro de qualidade da água.")
+.Produces<DefaultResponse>(StatusCodes.Status201Created)
+.Produces<DefaultResponse>(StatusCodes.Status400BadRequest)
+.Produces<DefaultResponse>(StatusCodes.Status500InternalServerError)
 .WithOpenApi();
 #endregion
+
 #region ENVIRONMENT
-app.MapGet("/environmentQuality", (IEnvironmentService service) =>
+app.MapGet("/environmentQuality", async (IEnvironmentService service, CancellationToken ct = default) =>
 {
-    return service.Get();
+    using var cts = CancellationTokenSource.CreateLinkedTokenSource(ct);
+    cts.CancelAfter(TimeSpan.FromSeconds(20));
+    return await service.GetAsync(cts.Token).ConfigureAwait(true);
 })
-.WithName("GetenvironmentQuality")
+.WithName("GetAllEnvironmentQuality")
+.WithDescription("Retorna todos os registros históricos de qualidade ambiental.")
+.Produces<DefaultResponse>(StatusCodes.Status200OK)
+.Produces<DefaultResponse>(StatusCodes.Status500InternalServerError)
 .WithOpenApi();
 
-app.MapGet("/currentenvironmentQuality", (IEnvironmentService service) =>
+app.MapGet("/currentenvironmentQuality", async (IEnvironmentService service, CancellationToken ct = default) =>
 {
-    return service.GetRealtime();
+    using var cts = CancellationTokenSource.CreateLinkedTokenSource(ct);
+    cts.CancelAfter(TimeSpan.FromSeconds(20));
+    return await service.GetRealtimeAsync(cts.Token).ConfigureAwait(true);
 })
-.WithName("GetcurrentEnvironmentQuality")
+.WithName("GetRealtimeEnvironmentQuality")
+.WithDescription("Retorna os registros da qualidade ambiental no momento atual.")
+.Produces<DefaultResponse>(StatusCodes.Status200OK)
+.Produces<DefaultResponse>(StatusCodes.Status500InternalServerError)
 .WithOpenApi();
 
-app.MapGet("/currentDayEnvironmentQuality", (IEnvironmentService service) =>
+app.MapGet("/currentDayEnvironmentQuality", async (IEnvironmentService service, CancellationToken ct = default) =>
 {
-    return service.GetCurrentDay();
+    using var cts = CancellationTokenSource.CreateLinkedTokenSource(ct);
+    cts.CancelAfter(TimeSpan.FromSeconds(20));
+    return await service.GetCurrentDayAsync(cts.Token).ConfigureAwait(true);
 })
-.WithName("GetcurrentDayEnvironmentQuality")
+.WithName("GetCurrentDayEnvironmentQuality")
+.WithDescription("Retorna os dados de qualidade ambiental para o dia atual.")
+.Produces<DefaultResponse>(StatusCodes.Status200OK)
+.Produces<DefaultResponse>(StatusCodes.Status500InternalServerError)
 .WithOpenApi();
 
-app.MapGet("/environmentQuality/{date}", (IEnvironmentService service, DateTime date) =>
+app.MapGet("/environmentQuality/{date}", async (IEnvironmentService service, DateTime date, CancellationToken ct = default) =>
 {
-    return service.GetFromDay(date);
+    using var cts = CancellationTokenSource.CreateLinkedTokenSource(ct);
+    cts.CancelAfter(TimeSpan.FromSeconds(20));
+    return await service.GetFromDayAsync(date, cts.Token).ConfigureAwait(true);
 })
-.WithName("GetenvironmentQualityDate")
+.WithName("GetEnvironmentQualityByDate")
+.WithDescription("Retorna os dados de qualidade ambiental para a data informada (yyyy-MM-dd).")
+.Produces<DefaultResponse>(StatusCodes.Status200OK)
+.Produces<DefaultResponse>(StatusCodes.Status500InternalServerError)
 .WithOpenApi();
 
-app.MapPost("/environmentQuality/", (IEnvironmentService service, EnvironmentalParameter parameter) =>
+app.MapPost("/environmentQuality", async (IEnvironmentService service, EnvironmentalParameter parameter, CancellationToken ct = default) =>
 {
-    return service.Save(parameter);
+    using var cts = CancellationTokenSource.CreateLinkedTokenSource(ct);
+    cts.CancelAfter(TimeSpan.FromSeconds(20));
+    return await service.SaveAsync(parameter, cts.Token).ConfigureAwait(true);
 })
-.WithName("PostenvironmentQuality")
+.WithName("SaveEnvironmentQuality")
+.WithDescription("Salva um novo registro de qualidade ambiental.")
+.Produces<DefaultResponse>(StatusCodes.Status201Created)
+.Produces<DefaultResponse>(StatusCodes.Status400BadRequest)
+.Produces<DefaultResponse>(StatusCodes.Status500InternalServerError)
 .WithOpenApi();
 #endregion
 
-app.Run();
+await app.RunAsync().ConfigureAwait(true);

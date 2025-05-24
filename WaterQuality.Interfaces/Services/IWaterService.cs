@@ -1,11 +1,13 @@
-﻿using WaterQuality.Domain.Water;
+﻿using WaterQuality.Common.Response;
+using WaterQuality.Domain.Water;
 
 namespace WaterQuality.Interfaces.Services;
+
 public interface IWaterService
 {
-    Task<ICollection<WaterQualityParameter>> Get();
-    Task<ICollection<WaterQualityParameter>> GetCurrentDay();
-    Task<ICollection<WaterQualityParameter>> GetFromDay(DateTime date);
-    Task<ICollection<WaterQualityParameter>> GetRealtime();
-    Task Save(WaterQualityParameter parameter);
+    Task<DefaultResponse> GetAsync(CancellationToken cancellationToken = default);
+    Task<DefaultResponse> GetCurrentDayAsync(CancellationToken cancellationToken = default);
+    Task<DefaultResponse> GetFromDayAsync(DateTime date, CancellationToken cancellationToken = default);
+    Task<DefaultResponse> GetRealtimeAsync(CancellationToken cancellationToken = default);
+    Task<DefaultResponse> SaveAsync(WaterQualityParameter parameter, CancellationToken cancellationToken = default);
 }

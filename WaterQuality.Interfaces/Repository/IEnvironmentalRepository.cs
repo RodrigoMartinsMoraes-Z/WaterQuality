@@ -3,7 +3,7 @@
 namespace WaterQuality.Interfaces.Repository;
 public interface IEnvironmentalRepository
 {
-    Task<ICollection<EnvironmentalParameter>> Get();
-    Task<ICollection<EnvironmentalParameter>> Get(DateTime date);
-    Task Save(EnvironmentalParameter environmental);
+    Task<ICollection<EnvironmentalParameter>> GetAsync(CancellationToken cancellationToken = default);
+    Task<ICollection<EnvironmentalParameter>> GetAsync(DateTime date, CancellationToken cancellationToken = default);
+    Task SaveAsync(EnvironmentalParameter environmental, CancellationToken cancellationToken = default);
 }
