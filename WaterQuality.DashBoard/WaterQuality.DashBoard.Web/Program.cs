@@ -12,6 +12,12 @@ builder.Services.AddRazorComponents()
 // Add device-specific services used by the WaterQuality.DashBoard.Shared project
 builder.Services.AddSingleton<IFormFactor, FormFactor>();
 
+// Configure Kestrel to listen on a specific port
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.ListenAnyIP(8091);
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -26,7 +32,7 @@ else
     app.UseHsts();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 app.UseAntiforgery();
