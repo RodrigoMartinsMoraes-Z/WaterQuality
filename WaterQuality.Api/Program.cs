@@ -21,7 +21,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddSingleton<IMongoDbContext>(sp =>
 {
-    var connectionString = "mongodb://admin:password@localhost:27017/WaterQuality?authSource=admin";
+    var connectionString = "mongodb://admin:password@127.0.0.1:27017/WaterQuality?authSource=admin";
     var dbName = "WaterQuality";
     return new MongoDbContext(connectionString, dbName);
 });
