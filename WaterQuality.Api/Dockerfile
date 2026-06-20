@@ -1,20 +1,21 @@
-# Acesse https://aka.ms/customizecontainer para saber como personalizar seu contêiner de depuração e como o Visual Studio usa este Dockerfile para criar suas imagens para uma depuração mais rápida.
+# See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
 
-# Esta fase é usada durante a execução no VS no modo rápido (Padrão para a configuração de Depuração)
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
+# This stage is used when running from VS in fast mode (Default for Debug configuration)
+FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS base
 USER $APP_UID
 WORKDIR /app
 EXPOSE 8090
 
 
-# Esta fase é usada para compilar o projeto de serviço
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+# This stage is used to build the service project
+FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["WaterQuality.Api/WaterQuality.Api.csproj", "WaterQuality.Api/"]
 COPY ["WaterQuality.Context/WaterQuality.Context.csproj", "WaterQuality.Context/"]
 COPY ["WaterQuality.Domain/WaterQuality.Domain.csproj", "WaterQuality.Domain/"]
 COPY ["WaterQuality.Interfaces/WaterQuality.Interfaces.csproj", "WaterQuality.Interfaces/"]
+COPY ["WaterQuality.Common/WaterQuality.Common.csproj", "WaterQuality.Common/"]
 COPY ["WaterQuality.Repository/WaterQuality.Repository.csproj", "WaterQuality.Repository/"]
 COPY ["WaterQuality.Services/WaterQuality.Services.csproj", "WaterQuality.Services/"]
 RUN dotnet restore "./WaterQuality.Api/WaterQuality.Api.csproj"
@@ -22,12 +23,12 @@ COPY . .
 WORKDIR "/src/WaterQuality.Api"
 RUN dotnet build "./WaterQuality.Api.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
-# Esta fase é usada para publicar o projeto de serviço a ser copiado para a fase final
+# This stage is used to publish the service project to be copied to the final stage
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
 RUN dotnet publish "./WaterQuality.Api.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
-# Esta fase é usada na produção ou quando executada no VS no modo normal (padrão quando não está usando a configuração de Depuração)
+# This stage is used in production or when running from VS in regular mode (Default when not using the Debug configuration)
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
